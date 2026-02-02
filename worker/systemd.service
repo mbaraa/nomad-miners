@@ -3,7 +3,7 @@ Description=Nomad - WORKER_NAME
 After=network-online.target
 
 [Service]
-ExecStart=/usr/bin/nomad agent -server -config=/etc/nomad.hcl
+ExecStart=/usr/bin/nomad agent -server -config=/etc/nomad.d/WORKER_NAME-conf.hcl
 Restart=on-failure
 User=root
 Group=root

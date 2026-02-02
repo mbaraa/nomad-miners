@@ -6,6 +6,10 @@ server {
   bootstrap_expect = 1
 }
 
+acl {
+  enabled = true
+}
+
 client {
   enabled = false
 }

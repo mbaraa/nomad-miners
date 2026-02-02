@@ -1,8 +1,7 @@
 .PHONY: all setup-worker setup-server
 
 all:
-	@echo "Usage: make build-os-arch e.g. make build-linux-amd64"
-	@echo "To build for all operating systems and architecture (for some reason) use build-all"
+	$(error lol.)
 
 setup-worker:
 ifndef NAME
@@ -23,7 +22,15 @@ setup-server:
 	@cp ./server/nomad-conf.hcl /etc/nomad.d/master-conf.hcl
 	@cp ./server/systemd.service /etc/systemd/system/nomad-server.service
 	@systemctl daemon-reload
-	@systemctl enable --now nomad-server-conf
+	@systemctl enable --now nomad-server
+	@nomad acl bootstrap
+
+register-new-worker:
+ifndef WORKER
+	$(error WORKER is not defined.)
+endif
+	@nomad acl policy apply -description "${WORKER} policy" ${WORKER}-policy ./worker/acl-policy.hcl
+	@nomad acl token create -name="${WORKER}" -policy="${WORKER}-policy"
 
 run-agent:
 ifndef JOB
