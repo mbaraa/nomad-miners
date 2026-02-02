@@ -27,6 +27,11 @@ job "xmrig" {
   }
 
   group "mining" {
+    restart {
+      attempts = 1
+      mode = "fail"
+    }
+
     task "xmrig-task" {
       user = "root"
       driver = "raw_exec"
@@ -42,7 +47,7 @@ job "xmrig" {
         args = [
           "--url", "${NOMAD_META_POOL_SERVER}:${NOMAD_META_POOL_PORT}",
           "--user", "${NOMAD_META_WALLET}",
-          "--pass", "${NOMAD_META_TARGET_NODE}${NOMAD_META_PASSWORD}",
+          "--pass", "${NOMAD_META_PASSWORD}",
           "--cpu-priority=0",
           "--threads=${NOMAD_META_CPU_THREADS}",
           "--hugepage-size=1048576",

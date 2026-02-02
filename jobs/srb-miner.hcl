@@ -3,6 +3,16 @@ variable "target_node" {
   default = "blyat"
 }
 
+variable "cpu_threads" {
+  type = number
+  default = 4
+}
+
+variable "memory_mb" {
+  type = number
+  default = 6144
+}
+
 job "srb-miner" {
   type = "batch"
 
@@ -17,9 +27,19 @@ job "srb-miner" {
   }
 
   group "mining" {
+    restart {
+      attempts = 1
+      mode = "fail"
+    }
+
     task "srb-task" {
       user = "root"
       driver = "raw_exec"
+
+      resources {
+        cpu    = 1000
+        memory = 1024
+      }
 
       config {
         command = "/opt/miners/SRBMiner-Multi/SRBMiner-MULTI"
@@ -28,7 +48,7 @@ job "srb-miner" {
           "--algorithm", "${NOMAD_META_ALGORITHM}",
           "--pool", "${NOMAD_META_POOL_SERVER}:${NOMAD_META_POOL_PORT}",
           "--wallet", "${NOMAD_META_WALLET}",
-          "--password", "${NOMAD_META_TARGET_NODE}${NOMAD_META_PASSWORD}",
+          "--password", "${NOMAD_META_PASSWORD}",
           "--disable-cpu",
           "${NOMAD_META_EXTRA_ARGS}"
         ]

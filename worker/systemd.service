@@ -1,6 +1,7 @@
 [Unit]
 Description=Nomad - WORKER_NAME
 After=network-online.target
+Requires=network-online.target
 
 [Service]
 Environment="NOMAD_TOKEN="

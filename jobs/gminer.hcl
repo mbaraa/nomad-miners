@@ -3,6 +3,16 @@ variable "target_node" {
   default = "blyat"
 }
 
+variable "cpu_threads" {
+  type = number
+  default = 4
+}
+
+variable "memory_mb" {
+  type = number
+  default = 6144
+}
+
 job "gminer" {
   type = "batch"
 
@@ -17,8 +27,18 @@ job "gminer" {
   }
 
   group "mining" {
+    restart {
+      attempts = 1
+      mode = "fail"
+    }
+
     task "gminer-task" {
       driver = "raw_exec"
+
+      resources {
+        cpu    = 1000
+        memory = 1024
+      }
 
       config {
         command = "/opt/miners/gminer-linux/miner"
@@ -28,7 +48,7 @@ job "gminer" {
           "--server", "${NOMAD_META_POOL_SERVER}",
           "--port", "${NOMAD_META_POOL_PORT}",
           "--user", "${NOMAD_META_WALLET}",
-          "--pass", "${NOMAD_META_TARGET_NODE}${NOMAD_META_PASSWORD}",
+          "--pass", "${NOMAD_META_PASSWORD}",
           "${NOMAD_META_EXTRA_ARGS}"
         ]
       }
