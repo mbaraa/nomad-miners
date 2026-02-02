@@ -3,5 +3,4 @@
 TOKEN=$1
 WORKER=$2
 
-cd ..
 make run-agent TOKEN="$TOKEN" JOB=gminer WORKER=$WORKER ALGORITHM=kawpow SERVER="kawpow.eu.mine.zpool.ca" PORT=1325 WALLET=LTfkcReKYwSjYyc7G8F41BvykZFpWFxmS6 PASSWORD="${WORKER},c=LTC"
