@@ -1,6 +1,6 @@
 .PHONY: all setup-worker setup-server
 
-SERVER_ADDRESS=http://nomad.kurwer.fyi
+SERVER_ADDRESS=nomad.kurwer.fyi
 SERVER_PORT=4646
 
 all:
@@ -12,9 +12,9 @@ ifndef NAME
 endif
 	@cp ./worker/nomad-conf.hcl /etc/nomad.d/${NAME}-conf.hcl
 	@cp ./worker/systemd.service /etc/systemd/system/nomad-${NAME}.service
-	@sed "s/WORKER_NAME/${NAME}/g" /etc/nomad.d/${NAME}-conf.hcl > /etc/nomad.d/${NAME}-conf.hcl
-	@sed "s/SERVER_ADDRESS/${SERVER_ADDRESS}/g" /etc/nomad.d/${NAME}-conf.hcl > /etc/nomad.d/${NAME}-conf.hcl
-	@sed "s/WORKER_NAME/${NAME}/g" /etc/systemd/system/nomad-${NAME}.service > /etc/systemd/system/nomad-${NAME}.service
+	@sed -i "s/WORKER_NAME/${NAME}/g" /etc/nomad.d/${NAME}-conf.hcl
+	@sed -i "s/SERVER_ADDRESS/${SERVER_ADDRESS}/g" /etc/nomad.d/${NAME}-conf.hcl
+	@sed -i "s/WORKER_NAME/${NAME}/g" /etc/systemd/system/nomad-${NAME}.service
 	@systemctl daemon-reload
 	@systemctl enable --now nomad-${NAME}.service
 
