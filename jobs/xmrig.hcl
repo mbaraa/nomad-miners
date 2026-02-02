@@ -3,6 +3,16 @@ variable "target_node" {
   default = "blyat"
 }
 
+variable "cpu_threads" {
+  type = number
+  default = 4
+}
+
+variable "memory_mb" {
+  type = number
+  default = 6144
+}
+
 job "xmrig" {
   type = "batch"
 
@@ -20,6 +30,11 @@ job "xmrig" {
     task "xmrig-task" {
       user = "root"
       driver = "raw_exec"
+
+      resources {
+        cores = var.cpu_threads
+        memory = var.memory_mb
+      }
 
       config {
         command = "xmrig"
