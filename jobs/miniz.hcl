@@ -24,7 +24,7 @@ job "miniz" {
         command = "/opt/miners/miniZ-linux/miniZ"
 
         args = [
-          "--url", "${NOMAD_META_WALLET}:${NOMAD_META_TARGET_NODE}${NOMAD_META_PASSWORD}@${NOMAD_META_POOL_SERVER}:${NOMAD_META_POOL_PORT} --shares-detail --show-shares"
+          "--url", "${NOMAD_META_WALLET}:${NOMAD_META_TARGET_NODE}${NOMAD_META_PASSWORD}@${NOMAD_META_POOL_SERVER}:${NOMAD_META_POOL_PORT} --shares-detail --show-shares",
           "${NOMAD_META_EXTRA_ARGS}"
         ]
       }

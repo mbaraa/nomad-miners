@@ -1,10 +1,15 @@
-.PHONY: all setup-worker setup-server
+.PHONY: setup-worker
+.PHONY: setup-server
+.PHONY: run-agent
+.PHONY: register-server-acl
+.PHONY: register-worker-node
+.PHONY: get-server-acl
 
 SERVER_ADDRESS=nomad.kurwer.fyi
 SERVER_PORT=4646
 
 all:
-	$(error lol. $(SERVER_ADDRESS))
+	$(error lol.)
 
 setup-worker:
 ifndef NAME
@@ -68,10 +73,10 @@ endif
 ifndef ARGS
 	@echo "ARGS is missing, just saying, it's passed down to the thing"
 endif
-@NOMAD_TOKEN=${TOKEN} nomad job run -address="${SERVER_ADDRESS}:${SERVER_PORT}" -var="target_node=${WORKER}" ./jobs/${JOB}.hcl
-	@NOMAD_TOKEN=${TOKEN} nomad job dispatch -address="${SERVER_ADDRESS}:${SERVER_PORT}" \
+	@NOMAD_TOKEN=${TOKEN} nomad job run -address="http://${SERVER_ADDRESS}:${SERVER_PORT}" -var="target_node=${WORKER}" ./jobs/${JOB}.hcl
+	@NOMAD_TOKEN=${TOKEN} nomad job dispatch -address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
 		-meta ALGORITHM="${ALGORITHM}" \
-		-meta POOL_SERVER="stratum+tcp://${SERVER}" \
+		-meta POOL_SERVER="${SERVER}" \
 		-meta POOL_PORT="${PORT}" \
 		-meta WALLET="${WALLET}" \
 		-meta PASSWORD="${PASSWORD}" \
