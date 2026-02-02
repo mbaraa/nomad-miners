@@ -42,6 +42,7 @@ job "cpuminer" {
       }
 
       config {
+        work_dir = "/opt/miners/cpuminer-opt"
         command = "/opt/miners/cpuminer-opt/cpuminer"
 
         args = [

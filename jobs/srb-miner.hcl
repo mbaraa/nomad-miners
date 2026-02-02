@@ -42,6 +42,7 @@ job "srb-miner" {
       }
 
       config {
+        work_dir = "/opt/miners/SRBMiner-Multi"
         command = "/opt/miners/SRBMiner-Multi/SRBMiner-MULTI"
 
         args = [

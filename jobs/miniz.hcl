@@ -41,6 +41,7 @@ job "miniz" {
       }
 
       config {
+        work_dir = "/opt/miners/miniZ-linux"
         command = "/opt/miners/miniZ-linux/miniZ"
 
         args = [

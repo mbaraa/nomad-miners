@@ -41,6 +41,7 @@ job "gminer" {
       }
 
       config {
+        work_dir = "/opt/miners/gminer-linux"
         command = "/opt/miners/gminer-linux/miner"
 
         args = [
