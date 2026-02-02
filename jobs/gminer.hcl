@@ -28,7 +28,7 @@ job "gminer" {
 
   group "mining" {
     restart {
-      attempts = 1
+      delay = "1m"
       mode = "fail"
     }
 
