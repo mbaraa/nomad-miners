@@ -30,12 +30,15 @@ ifndef TOKEN
 endif
 	@NOMAD_TOKEN=${TOKEN} nomad acl bootstrap
 
-register-new-worker:
+register-worker-node:
+ifndef TOKEN
+	$(error TOKEN is not defined.)
+endif
 ifndef WORKER
 	$(error WORKER is not defined.)
 endif
-	@nomad acl policy apply -description "${WORKER} policy" ${WORKER}-policy ./worker/acl-policy.hcl
-	@nomad acl token create -name="${WORKER}" -policy="${WORKER}-policy"
+	@NOMAD_TOKEN=${TOKEN} nomad acl policy apply -description "${WORKER} policy" ${WORKER}-policy ./worker/acl-policy.hcl
+	@NOMAD_TOKEN=${TOKEN} nomad acl token create -name="${WORKER}" -policy="${WORKER}-policy"
 
 run-agent:
 ifndef JOB
