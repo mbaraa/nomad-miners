@@ -16,7 +16,7 @@ endif
 	@sed "s/SERVER_ADDRESS/${SERVER_ADDRESS}/g" /etc/nomad.d/${NAME}-conf.hcl > /etc/nomad.d/${NAME}-conf.hcl
 	@sed "s/WORKER_NAME/${NAME}/g" /etc/systemd/system/nomad-${NAME}.service > /etc/systemd/system/nomad-${NAME}.service
 	@systemctl daemon-reload
-	@systemctl enable --now nomad-${NAME}-conf
+	@systemctl enable --now nomad-${NAME}.service
 
 setup-server:
 	@cp ./server/nomad-conf.hcl /etc/nomad.d/master-conf.hcl
@@ -25,10 +25,10 @@ setup-server:
 	@systemctl enable --now nomad-server
 
 register-server-acl:
-ifndef TOKEN
-	$(error TOKEN is not defined.)
-endif
-	@NOMAD_TOKEN=${TOKEN} nomad acl bootstrap
+	@nomad acl bootstrap
+
+get-server-acl:
+	@nomad acl token self
 
 register-worker-node:
 ifndef TOKEN

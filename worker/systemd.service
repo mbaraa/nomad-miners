@@ -4,7 +4,7 @@ After=network-online.target
 
 [Service]
 Environment="NOMAD_TOKEN="
-ExecStart=/usr/bin/nomad agent -server -config=/etc/nomad.d/WORKER_NAME-conf.hcl
+ExecStart=/usr/bin/nomad agent -config=/etc/nomad.d/WORKER_NAME-conf.hcl
 Restart=on-failure
 User=root
 Group=root
