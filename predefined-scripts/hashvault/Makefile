@@ -31,7 +31,7 @@ endif
 		SERVER="stratum+tcp://pool.hashvault.pro" PORT=443 \
 		WALLET=42BenUPb4LR9KpwkDAbcDqHiioeFWtPgBcTRY1jUFo6QHQLhHAfPeSHcMDFYdB3fBVijk5b7BdQSe1cVNMSSBKXsAHm4oUz \
 		PASSWORD="leon" \
-		CPU_THREADS=12
+		CPU_THREADS=6
 
 run-hashvault-randomx-xmrig-ziemowit:
 ifndef TOKEN
@@ -43,7 +43,7 @@ endif
 		SERVER="stratum+tcp://pool.hashvault.pro" PORT=443 \
 		WALLET=42BenUPb4LR9KpwkDAbcDqHiioeFWtPgBcTRY1jUFo6QHQLhHAfPeSHcMDFYdB3fBVijk5b7BdQSe1cVNMSSBKXsAHm4oUz \
 		PASSWORD="ziemowit" \
-		CPU_THREADS=10
+		CPU_THREADS=5
 
 run-hashvault-randomx-xmrig-rex:
 ifndef TOKEN
@@ -55,5 +55,5 @@ endif
 		SERVER="stratum+tcp://pool.hashvault.pro" PORT=443 \
 		WALLET=42BenUPb4LR9KpwkDAbcDqHiioeFWtPgBcTRY1jUFo6QHQLhHAfPeSHcMDFYdB3fBVijk5b7BdQSe1cVNMSSBKXsAHm4oUz \
 		PASSWORD="rex" \
-		CPU_THREADS=6
+		CPU_THREADS=4
 
