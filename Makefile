@@ -1,14 +1,13 @@
 .PHONY: all setup-worker setup-server
 
+SERVER_ADDRESS=http://nomad.kurwer.fyi:4646
+
 all:
 	$(error lol.)
 
 setup-worker:
 ifndef NAME
 	$(error NAME is not defined.)
-endif
-ifndef SERVER_ADDRESS
-	$(error SERVER_ADDRESS is not defined.)
 endif
 	@cp ./worker/nomad-conf.hcl /etc/nomad.d/${NAME}-conf.hcl
 	@cp ./worker/systemd.service /etc/systemd/system/nomad-${NAME}.service
@@ -41,6 +40,9 @@ endif
 	@NOMAD_TOKEN=${TOKEN} nomad acl token create -name="${WORKER}" -policy="${WORKER}-policy"
 
 run-agent:
+ifndef TOKEN
+	$(error TOKEN is not defined.)
+endif
 ifndef JOB
 	$(error JOB is not defined.)
 endif
@@ -60,18 +62,19 @@ ifndef WALLET
 	$(error WALLET is not defined.)
 endif
 ifndef PASSWORD
-	$(error PASSWORD is not defined.)
+	@echo "PASSWORD is missing, just saying, it's passed down to the thing"
 endif
 ifndef ARGS
 	@echo "ARGS is missing, just saying, it's passed down to the thing"
 endif
-	@nomad job run -var="target_node=${WORKER}" ./jobs/${JOB}.hcl
-	@nomad job dispatch \
+	@NOMAD_TOKEN=${TOKEN} nomad job run -address="${SERVER_ADDRESS}" -var="target_node=${WORKER}" ./jobs/${JOB}.hcl
+	@NOMAD_TOKEN=${TOKEN} nomad job dispatch -address="${SERVER_ADDRESS}" \
 		-meta ALGORITHM="${ALGORITHM}" \
 		-meta POOL_SERVER="stratum+tcp://${SERVER}" \
 		-meta POOL_PORT="${PORT}" \
 		-meta WALLET="${WALLET}" \
 		-meta PASSWORD="${PASSWORD}" \
 		-meta TARGET_NODE="${WORKER}" \
-		-meta EXTRA_ARGS="${ARGS}"
+		-meta CPU_THREADS="${CPU_THREADS}" \
+		-meta EXTRA_ARGS="${ARGS}" \
 		${JOB}

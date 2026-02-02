@@ -8,7 +8,7 @@ job "gminer" {
 
   parameterized {
     meta_required = ["ALGORITHM", "POOL_SERVER", "POOL_PORT", "WALLET", "PASSWORD", "TARGET_NODE"]
-    meta_optional = ["EXTRA_ARGS"]
+    meta_optional = ["EXTRA_ARGS", "CPU_THREADS"]
   }
 
   constraint {

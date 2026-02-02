@@ -8,7 +8,7 @@ job "cpuminer" {
 
   parameterized {
     meta_required = ["ALGORITHM", "POOL_SERVER", "POOL_PORT", "WALLET", "PASSWORD", "TARGET_NODE"]
-    meta_optional = ["EXTRA_ARGS"]
+    meta_optional = ["EXTRA_ARGS", "CPU_THREADS"]
   }
 
   constraint {
@@ -17,9 +17,8 @@ job "cpuminer" {
   }
 
   group "mining" {
-    user = "cpuminer"
-
     task "cpuminer-task" {
+      user = "cpuminer"
       driver = "raw_exec"
 
       config {

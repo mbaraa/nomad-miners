@@ -7,8 +7,8 @@ job "xmrig" {
   type = "batch"
 
   parameterized {
-    meta_required = ["POOL_SERVER", "POOL_PORT", "WALLET", "PASSWORD", "TARGET_NODE"]
-    meta_optional = ["EXTRA_ARGS"]
+    meta_required = ["POOL_SERVER", "POOL_PORT", "WALLET", "CPU_THREADS", "TARGET_NODE"]
+    meta_optional = ["EXTRA_ARGS", "PASSWORD", "ALGORITHM"]
   }
 
   constraint {
@@ -17,9 +17,8 @@ job "xmrig" {
   }
 
   group "mining" {
-    user = "root"
-
     task "xmrig-task" {
+      user = "root"
       driver = "raw_exec"
 
       config {
