@@ -3,7 +3,7 @@ Description=Nomad Server
 After=network-online.target
 
 [Service]
-ExecStart=/usr/bin/nomad server -config=/etc/nomad.d/master-conf.hcl
+ExecStart=/usr/bin/nomad agent -server -config=/etc/nomad.d/master-conf.hcl -bind 0.0.0.0 -network-interface='{{ GetDefaultInterfaces | attr "name" }}'
 Restart=on-failure
 User=root
 Group=root

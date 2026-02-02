@@ -16,6 +16,11 @@ client {
   }
 }
 
+advertise {
+  http = "{{ GetPrivateIP }}"
+  rpc  = "{{ GetPrivateIP }}"
+}
+
 plugin "exec" {
 }
 
@@ -25,3 +30,4 @@ plugin "raw_exec" {
   }
   cpu_hard_limit = false
 }
+

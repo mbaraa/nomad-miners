@@ -28,7 +28,7 @@ job "gminer" {
           "--server", "${NOMAD_META_POOL_SERVER}",
           "--port", "${NOMAD_META_POOL_PORT}",
           "--user", "${NOMAD_META_WALLET}",
-          "--pass", "${NOMAD_META_TARGET_NODE},${NOMAD_META_PASSWORD}",
+          "--pass", "${NOMAD_META_TARGET_NODE}${NOMAD_META_PASSWORD}",
           "${NOMAD_META_EXTRA_ARGS}"
         ]
       }

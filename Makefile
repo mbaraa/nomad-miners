@@ -23,7 +23,12 @@ setup-server:
 	@cp ./server/systemd.service /etc/systemd/system/nomad-server.service
 	@systemctl daemon-reload
 	@systemctl enable --now nomad-server
-	@nomad acl bootstrap
+
+register-server-acl:
+ifndef TOKEN
+	$(error TOKEN is not defined.)
+endif
+	@NOMAD_TOKEN=${TOKEN} nomad acl bootstrap
 
 register-new-worker:
 ifndef WORKER
