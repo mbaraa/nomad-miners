@@ -12,8 +12,8 @@ acl {
 }
 
 advertise {
-  rpc  = "master.nomad.kurwer.fyi"
-  http = "nomad.kurwer.fyi"
+  rpc  = "nomad.kurwer.fyi:4647"
+  http = "nomad.kurwer.fyi:4646"
 }
 
 client {
