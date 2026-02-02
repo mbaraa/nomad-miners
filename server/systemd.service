@@ -1,0 +1,12 @@
+[Unit]
+Description=Nomad Server
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/nomad server -config=/etc/nomad.hcl
+Restart=on-failure
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

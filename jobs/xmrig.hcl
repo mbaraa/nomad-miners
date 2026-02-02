@@ -1,0 +1,44 @@
+variable "target_node" {
+  type = string
+  default = "blyat"
+}
+
+job "xmrig" {
+  type = "batch"
+
+  parameterized {
+    meta_required = ["POOL_SERVER", "POOL_PORT", "WALLET", "PASSWORD", "TARGET_NODE"]
+    meta_optional = ["EXTRA_ARGS"]
+  }
+
+  constraint {
+    attribute = "${node.unique.name}"
+    value     = var.target_node
+  }
+
+  group "mining" {
+    user = "root"
+
+    task "xmrig-task" {
+      driver = "raw_exec"
+
+      config {
+        command = "xmrig"
+
+        args = [
+          "--url", "${NOMAD_META_POOL_SERVER}:${NOMAD_META_POOL_PORT}",
+          "--user", "${NOMAD_META_WALLET}",
+          "--pass", "${NOMAD_META_TARGET_NODE}${NOMAD_META_PASSWORD}",
+          "--cpu-priority=0",
+          "--threads=${NOMAD_META_CPU_THREADS}",
+          "--hugepage-size=1048576",
+          "--huge-pages-jit",
+          "--randomx-1gb-pages",
+          "--av=0",
+          "--keepalive",
+          "${NOMAD_META_EXTRA_ARGS}"
+        ]
+      }
+    }
+  }
+}
