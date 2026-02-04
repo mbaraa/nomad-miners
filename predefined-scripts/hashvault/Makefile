@@ -57,3 +57,15 @@ endif
 		PASSWORD="rex" \
 		CPU_THREADS=4
 
+run-hashvault-randomx-xmrig-jack:
+ifndef TOKEN
+	$(error TOKEN is not defined.)
+endif
+	@cd ../.. && \
+	make run-agent TOKEN="${TOKEN}" \
+		JOB=xmrig WORKER=jack ALGORITHM=randomx \
+		SERVER="stratum+tcp://pool.hashvault.pro" PORT=443 \
+		WALLET=42BenUPb4LR9KpwkDAbcDqHiioeFWtPgBcTRY1jUFo6QHQLhHAfPeSHcMDFYdB3fBVijk5b7BdQSe1cVNMSSBKXsAHm4oUz \
+		PASSWORD="jack" \
+		CPU_THREADS=4
+

@@ -3,4 +3,9 @@
 TOKEN=$1
 WORKER=$2
 
-make run-agent TOKEN="$TOKEN" JOB=srb-miner WORKER=$WORKER ALGORITHM=verthash SERVER="verthash.eu.mine.zpool.ca" PORT=6144 WALLET=LTfkcReKYwSjYyc7G8F41BvykZFpWFxmS6 PASSWORD="${WORKER},c=LTC" CPU_THREADS=1
+make run-agent TOKEN="$TOKEN" \
+    JOB=srb-miner WORKER=$WORKER ALGORITHM=verthash \
+    SERVER="verthash.eu.mine.zpool.ca" PORT=6144 \
+    WALLET=LTfkcReKYwSjYyc7G8F41BvykZFpWFxmS6 \
+    PASSWORD="${WORKER},c=LTC" \
+    CPU_THREADS=2
