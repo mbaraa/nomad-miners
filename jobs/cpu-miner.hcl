@@ -5,12 +5,12 @@ variable "target_node" {
 
 variable "cpu_threads" {
   type = number
-  default = 4
+  default = 2
 }
 
 variable "memory_mb" {
   type = number
-  default = 6144
+  default = 3072
 }
 
 job "cpuminer" {
@@ -37,8 +37,8 @@ job "cpuminer" {
       driver = "raw_exec"
 
       resources {
-        cpu    = 1000
-        memory = 1024
+        cores = var.cpu_threads
+        memory = var.memory_mb
       }
 
       config {
