@@ -10,7 +10,7 @@ variable "cpu_threads" {
 
 variable "memory_mb" {
   type = number
-  default = 3072
+  default = 4096
 }
 
 job "gminer" {
@@ -50,7 +50,7 @@ job "gminer" {
           "--port", "${NOMAD_META_POOL_PORT}",
           "--user", "${NOMAD_META_WALLET}",
           "--pass", "${NOMAD_META_PASSWORD}",
-          "${NOMAD_META_EXTRA_ARGS}"
+          # "${NOMAD_META_EXTRA_ARGS}"
         ]
       }
     }

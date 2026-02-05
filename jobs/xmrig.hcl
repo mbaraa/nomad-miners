@@ -10,7 +10,7 @@ variable "cpu_threads" {
 
 variable "memory_mb" {
   type = number
-  default = 6144
+  default = 7168
 }
 
 job "xmrig" {

@@ -10,7 +10,7 @@ variable "cpu_threads" {
 
 variable "memory_mb" {
   type = number
-  default = 3072
+  default = 4096
 }
 
 job "miniz" {
