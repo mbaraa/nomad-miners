@@ -4,6 +4,7 @@
 .PHONY: register-server-acl
 .PHONY: register-worker-node
 .PHONY: get-server-acl
+.PHONY: payout-coins
 
 SERVER_ADDRESS=nomad.kurwer.fyi
 SERVER_PORT=4646
@@ -45,7 +46,7 @@ endif
 	@NOMAD_TOKEN=${TOKEN} nomad acl policy apply -description "${WORKER} policy" ${WORKER}-policy ./worker/acl-policy.hcl
 	@NOMAD_TOKEN=${TOKEN} nomad acl token create -name="${WORKER}" -policy="${WORKER}-policy"
 
-run-agent:
+run-batch:
 ifndef TOKEN
 	$(error TOKEN is not defined.)
 endif
@@ -76,7 +77,7 @@ endif
 	@NOMAD_TOKEN=${TOKEN} nomad job run -address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
 		-var="target_node=${WORKER}" \
 		-var="cpu_threads=${CPU_THREADS}" \
-		./jobs/${JOB}.hcl
+		./batches/${JOB}.hcl
 	@NOMAD_TOKEN=${TOKEN} nomad job dispatch -address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
 		-meta ALGORITHM="${ALGORITHM}" \
 		-meta POOL_SERVER="${SERVER}" \
@@ -87,3 +88,35 @@ endif
 		-meta CPU_THREADS="${CPU_THREADS}" \
 		-meta EXTRA_ARGS="${ARGS}" \
 		${JOB}
+
+payout-coins:
+	@echo '{coin = "LTC", address = "LTfkcReKYwSjYyc7G8F41BvykZFpWFxmS6"}'
+	@echo '{coin = "BTC", address = "14hHveMbgiyjPFgVS6n8F7rHpCzXVUFQMZ"}'
+	@echo '{coin = "XMR", address = "42BenUPb4LR9KpwkDAbcDqHiioeFWtPgBcTRY1jUFo6QHQLhHAfPeSHcMDFYdB3fBVijk5b7BdQSe1cVNMSSBKXsAHm4oUz"}'
+
+run-service:
+ifndef TOKEN
+	$(error TOKEN is not defined.)
+endif
+ifndef JOB_GROUP
+	$(error JOB_GROUP is not defined.)
+endif
+ifndef JOB
+	$(error JOB is not defined.)
+endif
+ifndef PAYOUT
+	$(error run make payout-coins.)
+endif
+	@NOMAD_TOKEN=${TOKEN} nomad job run \
+		-address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
+		-var='payout=${PAYOUT}' \
+		./services/${JOB_GROUP}/${JOB}.hcl
+
+reboot-agents:
+ifndef TOKEN
+	$(error TOKEN is not defined.)
+endif
+	@NOMAD_TOKEN=${TOKEN} nomad job run \
+		-address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
+		./batches/reboot.hcl
+

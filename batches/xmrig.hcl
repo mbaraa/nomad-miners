@@ -5,16 +5,16 @@ variable "target_node" {
 
 variable "cpu_threads" {
   type = number
-  default = 4
+  default = 3
 }
 
 variable "memory_mb" {
   type = number
-  default = 7168
+  default = 3072
 }
 
-job "xmrig" {
-  type = "batch"
+job "xmrig-low" {
+  type = "service"
 
   parameterized {
     meta_required = ["POOL_SERVER", "POOL_PORT", "WALLET", "CPU_THREADS", "TARGET_NODE"]
@@ -32,7 +32,7 @@ job "xmrig" {
       mode = "fail"
     }
 
-    task "xmrig-task" {
+    task "xmrig-low-task" {
       user = "root"
       driver = "raw_exec"
 
