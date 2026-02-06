@@ -10,7 +10,7 @@ variable "cpu_threads" {
 
 variable "memory_mb" {
   type = number
-  default = 4096
+  default = 5120
 }
 
 job "srb-miner" {
