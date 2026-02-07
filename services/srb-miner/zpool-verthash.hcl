@@ -38,6 +38,11 @@ job "srb-miner-zpool" {
         value     = group.key
       }
 
+      restart {
+        delay = "1m"
+        mode = "fail"
+      }
+
       task "srb-miner-task" {
         user   = "root"
         driver = "raw_exec"

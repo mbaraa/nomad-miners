@@ -38,6 +38,11 @@ job "miniz-zpool" {
         value     = group.key
       }
 
+      restart {
+        delay = "1m"
+        mode = "fail"
+      }
+
       task "miniz-task" {
         user   = "root"
         driver = "raw_exec"

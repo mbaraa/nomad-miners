@@ -41,6 +41,11 @@ job "xmrig-hash-vault" {
         value     = group.key
       }
 
+      restart {
+        delay = "1m"
+        mode = "fail"
+      }
+
       task "xmrig-task" {
         user   = "root"
         driver = "raw_exec"
