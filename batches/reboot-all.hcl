@@ -1,15 +1,5 @@
-variable "target_node" {
-  type = string
-  default = "blyat"
-}
-
 job "reboot" {
   type = "batch"
-
-  constraint {
-    attribute = "${node.unique.name}"
-    value     = var.target_node
-  }
 
   group "reboot" {
     count = 1

@@ -105,18 +105,30 @@ ifndef JOB
 	$(error JOB is not defined.)
 endif
 ifndef PAYOUT
-	$(error run make payout-coins.)
+	$(error PAYOUT is not defined, make payout-coins.)
 endif
 	@NOMAD_TOKEN=${TOKEN} nomad job run \
 		-address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
 		-var='payout=${PAYOUT}' \
 		./services/${JOB_GROUP}/${JOB}.hcl
 
-reboot-agents:
+reboot-all-workers:
 ifndef TOKEN
 	$(error TOKEN is not defined.)
 endif
 	@NOMAD_TOKEN=${TOKEN} nomad job run \
 		-address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
+		./batches/reboot-all.hcl
+
+reboot-worker:
+ifndef TOKEN
+	$(error TOKEN is not defined.)
+endif
+ifndef WORKER
+	$(error WORKER is not defined.)
+endif
+	@NOMAD_TOKEN=${TOKEN} nomad job run \
+		-address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
+		-var="target_node=${WORKER}" \
 		./batches/reboot.hcl
 
