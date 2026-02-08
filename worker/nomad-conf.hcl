@@ -6,6 +6,12 @@ client {
   enabled = true
   servers = ["SERVER_ADDRESS:4647"]
 
+  server_join {
+    retry_join     = ["SERVER_ADDRESS:4647"]
+    retry_interval = "30s"
+    retry_max      = 0
+  }
+
   chroot_env {
     "/usr/bin"       = "/usr/bin"
     "/bin"           = "/bin"
@@ -22,6 +28,9 @@ advertise {
 }
 
 plugin "exec" {
+  config {
+    enabled = true
+  }
 }
 
 plugin "raw_exec" {
