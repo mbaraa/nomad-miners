@@ -15,12 +15,12 @@ variable "miners" {
     memory  = number
   }))
   default = {
-    "rex" = { threads = 2, memory = 3072 }
-    "leon" = { threads = 2, memory = 3072 }
-    # "tucker" = { threads = 2, memory = 3072 }
-    # "mike" = { threads = 2, memory = 3072 }
-    # "ziemowit" = { threads = 2, memory = 3072 }
-    # "jack" = { threads = 2, memory = 3072 }
+    "rex" = { threads = 2, memory = 4096 }
+    "leon" = { threads = 2, memory = 4096 }
+    # "tucker" = { threads = 2, memory = 4096 }
+    # "mike" = { threads = 2, memory = 4096 }
+    # "ziemowit" = { threads = 2, memory = 4096 }
+    # "jack" = { threads = 2, memory = 4096 }
   }
 }
 

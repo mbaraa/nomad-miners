@@ -56,38 +56,10 @@ endif
 ifndef WORKER
 	$(error WORKER is not defined.)
 endif
-ifndef ALGORITHM
-	$(error ALGORITHM is not defined.)
-endif
-ifndef SERVER
-	$(error SERVER is not defined.)
-endif
-ifndef PORT
-	$(error PORT is not defined.)
-endif
-ifndef WALLET
-	$(error WALLET is not defined.)
-endif
-ifndef PASSWORD
-	@echo "PASSWORD is missing, just saying, it's passed down to the thing"
-endif
-ifndef ARGS
-	@echo "ARGS is missing, just saying, it's passed down to the thing"
-endif
 	@NOMAD_TOKEN=${TOKEN} nomad job run -address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
 		-var="target_node=${WORKER}" \
-		-var="cpu_threads=${CPU_THREADS}" \
 		./batches/${JOB}.hcl
-	@NOMAD_TOKEN=${TOKEN} nomad job dispatch -address="http://${SERVER_ADDRESS}:${SERVER_PORT}" \
-		-meta ALGORITHM="${ALGORITHM}" \
-		-meta POOL_SERVER="${SERVER}" \
-		-meta POOL_PORT="${PORT}" \
-		-meta WALLET="${WALLET}" \
-		-meta PASSWORD="${PASSWORD}" \
-		-meta TARGET_NODE="${WORKER}" \
-		-meta CPU_THREADS="${CPU_THREADS}" \
-		-meta EXTRA_ARGS="${ARGS}" \
-		${JOB}
+	# @NOMAD_TOKEN=${TOKEN} nomad job dispatch -address="http://${SERVER_ADDRESS}:${SERVER_PORT}" ${JOB}
 
 payout-coins:
 	@echo '{coin = "LTC", address = "LTfkcReKYwSjYyc7G8F41BvykZFpWFxmS6"}'
