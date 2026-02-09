@@ -65,6 +65,7 @@ payout-coins:
 	@echo '{coin = "LTC", address = "LTfkcReKYwSjYyc7G8F41BvykZFpWFxmS6"}'
 	@echo '{coin = "BTC", address = "14hHveMbgiyjPFgVS6n8F7rHpCzXVUFQMZ"}'
 	@echo '{coin = "XMR", address = "42BenUPb4LR9KpwkDAbcDqHiioeFWtPgBcTRY1jUFo6QHQLhHAfPeSHcMDFYdB3fBVijk5b7BdQSe1cVNMSSBKXsAHm4oUz"}'
+	@echo '{coin = "VTC", address = "vtc1q9djvxr7n0a3uzdr7y557eh7s3hlsknrmd8tzdp"}'
 
 run-service:
 ifndef TOKEN
