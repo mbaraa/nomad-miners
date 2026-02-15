@@ -24,7 +24,7 @@ variable "miners" {
   }
 }
 
-job "srb-miner-supernova" {
+job "srb-miner-suprnova" {
   type = "service"
 
   dynamic "group" {
