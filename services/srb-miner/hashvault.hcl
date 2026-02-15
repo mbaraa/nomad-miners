@@ -15,7 +15,7 @@ variable "miners" {
     memory  = number
   }))
   default = {
-    "rex" = { threads = 6, memory = 6144 }
+    "rex" = { threads = 18, memory = 20480 }
     "leon" = { threads = 12, memory = 6144 }
     "tucker" = { threads = 6, memory = 6144 }
     "mike" = { threads = 3, memory = 6144 }
