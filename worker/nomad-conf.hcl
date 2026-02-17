@@ -28,9 +28,7 @@ advertise {
 }
 
 plugin "exec" {
-  config {
-    enabled = true
-  }
+  enabled = true
 }
 
 plugin "raw_exec" {
